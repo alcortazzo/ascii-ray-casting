@@ -1,4 +1,4 @@
-from screen import Screen
+from window import Window
 
 if __name__ == "__main__":
-    screen = Screen()
+    window = Window()
