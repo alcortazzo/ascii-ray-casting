@@ -1,8 +1,8 @@
 import curses
-import time
 
 from ui import UserInterface
 from field import Field
+from rays import calculate_rays
 
 
 class Window:
@@ -33,8 +33,7 @@ class Window:
     def show_field(self, stdscr, field: Field):
         for row in range(len(field.field)):
             for col in range(len(field.field[row])):
-                to_print = "." if isinstance(field.field[row][col], int) else field.field[row][col]
-                stdscr.addstr(row + field.top_indent, col + field.left_indent, to_print)
+                stdscr.addstr(row + field.top_indent, col + field.left_indent, field.field[row][col])
         stdscr.refresh()
 
     def window(self, stdscr):
@@ -48,8 +47,29 @@ class Window:
         ui.initialize_borders()
         ui.initialize_text()
         self.show_ui(stdscr, ui)
-        time.sleep(2)
 
         field = Field(ui=ui.ui)
         self.show_field(stdscr, field)
-        time.sleep(2)
+
+        started = False
+        while True:
+            if started:
+                calculate_rays(field=field)
+            self.show_field(stdscr, field)
+
+            key = stdscr.getch()
+
+            if key == ord("w") or key == curses.KEY_UP:
+                field.move_user("up")
+            elif key == ord("s") or key == curses.KEY_DOWN:
+                field.move_user("down")
+            elif key == ord("a") or key == curses.KEY_LEFT:
+                field.move_user("left")
+            elif key == ord("d") or key == curses.KEY_RIGHT:
+                field.move_user("right")
+            elif key == ord("e"):
+                started = True
+            elif key == ord("c"):
+                field.create_wall()
+            elif key == ord("q"):
+                raise Exception("q")

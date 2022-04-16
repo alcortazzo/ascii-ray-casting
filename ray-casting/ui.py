@@ -1,4 +1,4 @@
-TEXT_UI: list = ["move character: w,a,s,d", "create wall block: c", "reset the field: r"]
+TEXT_UI: list = ["move character: W,A,S,D", "create wall block: C", "start: E | quit: Q"]
 
 
 class UserInterface:
