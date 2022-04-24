@@ -62,3 +62,7 @@ class Field:
         elif self.user_coordinates[0] > 0 and self.field[self.user_coordinates[0] - 1][self.user_coordinates[1]] != "#":
             self.user_coordinates = (self.user_coordinates[0] - 1, self.user_coordinates[1])
             self.field[self.user_coordinates[0]][self.user_coordinates[1]] = "O"
+
+    def reset_field(self) -> None:
+        self.initialize_field()
+        self.initialize_user()

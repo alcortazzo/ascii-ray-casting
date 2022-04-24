@@ -16,7 +16,7 @@ class Window:
         curses.wrapper(self.window)
 
     def check_size(self, num_rows: int, num_cols: int) -> bool:
-        if (num_cols < 30) or (num_rows < 20):
+        if (num_cols < 36) or (num_rows < 15):
             return False
         else:
             return True
@@ -69,7 +69,10 @@ class Window:
                 field.move_user("right")
             elif key == ord("e"):
                 started = True
-            elif key == ord("c"):
+            elif key == ord("r"):
+                field.reset_field()
+                started = False
+            elif key == ord(" "):
                 field.create_wall()
             elif key == ord("q"):
-                raise Exception("q")
+                raise Exception("Quit")
